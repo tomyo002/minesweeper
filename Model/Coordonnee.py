@@ -41,9 +41,4 @@ def getColonneCoordonnee(coor: tuple) -> int:
     return coor[1]
 
 
-# print(construireCoordonne(2, 1))
-# print(construireCoordonne("tom", 1))
-# print(construireCoordonne(2, -1))
-# print(getColonneCoordonnee(5))
-# print(getLigneCoordonnee((2, 3)))
-# print(getColonneCoordonnee((2, 3)))
+
