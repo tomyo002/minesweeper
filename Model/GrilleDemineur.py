@@ -52,3 +52,17 @@ def type_grille_demineur(grille: list) -> bool:
     # return True
 
 
+def construireGrilleDemineur(nbLigne: int, nbCol: int) -> list:
+    if type(nbLigne) != int or type(nbCol) != int:
+        raise TypeError(f"le nombre de lignes {type(nbLigne)} ou de colonnes {type(nbCol)} n'est pas un entier")
+    elif nbLigne <= 0 or nbCol <= 0:
+        raise ValueError(f"Le nombre de lignes {nbLigne} ou le nombre de colonnes {nbCol} est négatif ou nul")
+
+    lfin =[]
+    for i in range(nbLigne):
+        l = []
+        for j in range(nbCol):
+            l.append(construireCellule())
+        lfin.append(l)
+    return lfin
+
