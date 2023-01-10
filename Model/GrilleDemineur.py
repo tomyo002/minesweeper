@@ -183,3 +183,6 @@ def getNbMinesGrilleDemineur(grille: list):
             if getContenuGrilleDemineur(grille, (i,j)) == const.ID_MINE:
                 val += 1
     return val
+
+def getAnnotationGrilleDemineur(grille: list, coordonnee: tuple) -> str:
+    return getAnnotationCellule(getCelluleGrilleDemineur(grille, coordonnee))
