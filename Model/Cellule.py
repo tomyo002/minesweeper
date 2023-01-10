@@ -29,3 +29,14 @@ def isContenuCorrect(contient: int) -> bool:
     except TypeError:
         isCorrect = False
     return isCorrect
+
+def construireCellule(contient: int =0, bolVisible : bool = False) -> dict:
+    if isContenuCorrect(contient) == False:
+        raise ValueError(f"construireCellule : le contenu {contient} n'est pas correct")
+    elif type(bolVisible) != bool:
+        raise TypeError(f"construireCellule : le second paramètre {type(bolVisible)} n'est pas un booléen")
+    dico = {}
+    dico[const.CONTENU] = contient
+    dico[const.VISIBLE] = bolVisible
+    return  dico
+
