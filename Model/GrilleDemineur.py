@@ -151,7 +151,7 @@ def placerMinesGrilleDemineur(grille: list, nb: int, coordonnee: tuple) -> None:
         setContenuGrilleDemineur(grille, lPossible[coorMine], const.ID_MINE)
         del lPossible[coorMine]
         nb -= 1
-
+    compterMinesVoisinesGrilleDemineur(grille)
     return None
 
 def compterMinesVoisinesGrilleDemineur(grille: list) -> None:
