@@ -19,7 +19,7 @@ def type_coordonnee(coord: tuple) -> bool:
         and coord[0] >= 0 and coord[1] >= 0
 
 
-def construireCoordonne(num_ligne: int, num_colonne: int) -> tuple:
+def construireCoordonnee(num_ligne: int, num_colonne: int) -> tuple:
     if type(num_ligne) != int or type(num_colonne) != int:
         raise TypeError(f"construireCoordonnee: le numéro de ligne {type(num_ligne)} ou le numéro de colonne {type(num_colonne)} ne sont pas des entiers")
     elif num_ligne < 0 or num_colonne < 0:
