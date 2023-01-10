@@ -95,4 +95,13 @@ def getAnnotationCellule(dico: dict) -> str:
     else:
         return None
 
-
+def changeAnnotationCellule(dico:dict) -> None:
+    if not type_cellule(dico):
+        raise TypeError(f"changeAnnotationCellule: le paramètre n'est pas une cellule")
+    if dico[const.ANNOTATION] == None:
+        dico[const.ANNOTATION] = const.FLAG
+    elif dico[const.ANNOTATION] == const.FLAG:
+        dico[const.ANNOTATION] = const.DOUTE
+    else:
+        dico[const.ANNOTATION] = None
+    return None
