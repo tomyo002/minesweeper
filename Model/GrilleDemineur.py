@@ -151,20 +151,35 @@ def placerMinesGrilleDemineur(grille: list, nb: int, coordonnee: tuple) -> None:
         setContenuGrilleDemineur(grille, lPossible[coorMine], const.ID_MINE)
         del lPossible[coorMine]
         nb -= 1
+
     compterMinesVoisinesGrilleDemineur(grille)
     return None
 
 def compterMinesVoisinesGrilleDemineur(grille: list) -> None:
     l=[]
+    dico = {}
     for i in range(len(grille)):
         for j in range(len(grille[i])):
             if getContenuGrilleDemineur(grille, (i,j)) == const.ID_MINE:
                 l += (getCoordonneeVoisinsGrilleDemineur(grille, (i,j)))
+
     for i in l:
-        val = 0
-        for j in l:
-            if i == j:
-                val += 1
-        setContenuGrilleDemineur(grille, i, val)
+       if contientMineGrilleDemineur(grille, i) == False:
+           if i not in dico:
+               dico[i] = 1
+           else:
+               dico[i] += 1
+
+    for key, val in dico.items():
+        setContenuGrilleDemineur(grille, key, val)
     return None
 
+def getNbMinesGrilleDemineur(grille: list):
+    if not type_grille_demineur(grille):
+        raise ValueError(f"getNbMinesGrilleDemineur: le paramètre n'est pas une grille")
+    val = 0
+    for i in range(len(grille)):
+        for j in range(len(grille[i])):
+            if getContenuGrilleDemineur(grille, (i,j)) == const.ID_MINE:
+                val += 1
+    return val
