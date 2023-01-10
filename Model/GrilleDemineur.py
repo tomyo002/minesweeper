@@ -4,7 +4,7 @@ from Model.Cellule import *
 from Model.Coordonnee import *
 from random import shuffle, randint
 from itertools import filterfalse
-
+from random import randrange
 
 # Méthode gérant la grille du démineur
 # La grille d'un démineur est un tableau 2D régulier (rectangulaire)
@@ -132,3 +132,24 @@ def getCoordonneeVoisinsGrilleDemineur(grille: list, coordonnee : tuple) -> list
                         lVoisin.append(val)
 
     return lVoisin
+
+
+def placerMinesGrilleDemineur(grille: list, nb: int, coordonnee: tuple) -> None:
+    if nb < 0 or nb > len(grille) * len(grille[0]):
+        raise ValueError(f"placerMinesGrilleDemineur: nombre de bombes à placer incorrect")
+    elif not isCoordonneeCorrecte(grille, coordonnee):
+        raise IndexError(f"placerMinesGrilleDemineur: la coordonnée n'est pas dans la fonctions précédentes")
+
+    lPossible = []
+    for i in range(len(grille)):
+        for j in range(len(grille[i])):
+            if (i, j) != coordonnee:
+                lPossible.append((i, j))
+
+    while nb > 0:
+        coorMine = randrange(len(lPossible))
+        setContenuGrilleDemineur(grille, lPossible[coorMine], const.ID_MINE)
+        del lPossible[coorMine]
+        nb -= 1
+
+    return None
