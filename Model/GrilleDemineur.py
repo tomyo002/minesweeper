@@ -225,7 +225,6 @@ def reinitialiserGrilleDemineur(grille: list) -> None:
 def decouvrirGrilleDemineur(grille: list, coor: tuple) -> set:
     ensemble = set()
     lst = []
-    i = 0
     if getContenuGrilleDemineur(grille, coor) == 0:
         lst += getCoordonneeVoisinsGrilleDemineur(grille, coor)
         setVisibleGrilleDemineur(grille, coor, True)
@@ -248,3 +247,25 @@ def decouvrirGrilleDemineur(grille: list, coor: tuple) -> set:
 
 
 
+def simplifierGrilleDemineur(grille: list, coor: tuple) -> set:
+    ensemble = set()
+    lst = []
+    nbDrap = 0
+    if isVisibleGrilleDemineur(grille, coor):
+        lst += getCoordonneeVoisinsGrilleDemineur(grille, coor)
+        setVisibleGrilleDemineur(grille, coor, True)
+        for i in lst:
+            if getAnnotationGrilleDemineur(grille, i) == const.FLAG:
+                nbDrap += 1
+        if getContenuGrilleDemineur(grille, coor) == nbDrap:
+            for i in lst:
+                if getAnnotationGrilleDemineur(grille, i) != const.FLAG:
+                    if isVisibleGrilleDemineur(grille, i) == False:
+                        setVisibleGrilleDemineur(grille, i, True)
+                        val = simplifierGrilleDemineur(grille, i)
+                        ensemble.add(i)
+                        for j in val:
+                            ensemble.add(j)
+                        val.clear()
+
+    return ensemble
