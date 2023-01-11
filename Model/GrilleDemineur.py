@@ -220,3 +220,31 @@ def reinitialiserGrilleDemineur(grille: list) -> None:
         for j in range(len(grille[i])):
            reinitialiserCellule(getCelluleGrilleDemineur(grille, (i, j)))
     return None
+
+
+def decouvrirGrilleDemineur(grille: list, coor: tuple) -> set:
+    ensemble = set()
+    lst = []
+    i = 0
+    if getContenuGrilleDemineur(grille, coor) == 0:
+        lst += getCoordonneeVoisinsGrilleDemineur(grille, coor)
+        setVisibleGrilleDemineur(grille, coor, True)
+        ensemble.add(coor)
+        for i in range(len(lst)):
+            ensemble.add(lst[i])
+            if isVisibleGrilleDemineur(grille, lst[i]) == False:
+                setVisibleGrilleDemineur(grille, lst[i], True)
+                if getContenuGrilleDemineur(grille, lst[i]) == 0:
+                    val = decouvrirGrilleDemineur(grille, lst[i])
+                    for j in val:
+                        ensemble.add(j)
+                    val.clear()
+
+    else:
+        setVisibleGrilleDemineur(grille, coor, True)
+        ensemble.add(coor)
+
+    return ensemble
+
+
+
