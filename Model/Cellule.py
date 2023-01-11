@@ -89,11 +89,11 @@ def isAnnotationCorrecte(annotation: str) -> bool:
 def getAnnotationCellule(dico: dict) -> str:
     if not type_cellule(dico):
         raise TypeError(f"getAnnotationCellule: le paramètre {type(dico)} n'est pas une cellule")
-
+    v = None
     if const.ANNOTATION in dico:
-        return dico[const.ANNOTATION]
-    else:
-        return None
+        v = dico[const.ANNOTATION]
+
+    return v
 
 def changeAnnotationCellule(dico:dict) -> None:
     if not type_cellule(dico):
