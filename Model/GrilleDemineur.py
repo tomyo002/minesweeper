@@ -205,6 +205,8 @@ def gagneGrilleDemineur(grille: list) -> bool:
                 isGagne = False
             elif isVisibleGrilleDemineur(grille,(i, j)) and contientMineGrilleDemineur(grille, (i, j)):
                 isGagne = False
+            elif contientMineGrilleDemineur(grille,(i, j)) and getAnnotationGrilleDemineur(grille, (i, j)) != const.FLAG:
+                isGagne = False
     return isGagne
 
 def perduGrilleDemineur(grille: list) -> bool:
@@ -269,3 +271,47 @@ def simplifierGrilleDemineur(grille: list, coor: tuple) -> set:
                         val.clear()
 
     return ensemble
+
+
+def ajouterFlagGrilleDemineur(grille: list, coor: tuple) -> set:
+    ensemble = set()
+    lst = []
+    nbCase = 8
+    if isVisibleGrilleDemineur(grille, coor):
+        lst += getCoordonneeVoisinsGrilleDemineur(grille, coor)
+        for i in lst:
+            if isVisibleGrilleDemineur(grille, i):
+                nbCase -= 1
+        if getContenuGrilleDemineur(grille, coor)  == nbCase:
+            for i in lst:
+                if not isVisibleGrilleDemineur(grille, i) and  getAnnotationGrilleDemineur(grille, i) != const.FLAG:
+                    cel = getCelluleGrilleDemineur(grille, i)
+                    cel[const.ANNOTATION] = const.FLAG
+                    ensemble.add(i)
+    return ensemble
+
+
+def simplifierToutGrilleDemineur(grille: list) -> tuple:
+    ensembleV = set()
+    ensembleF = set()
+    for i in range(len(grille)):
+        for j in range(len(grille[i])):
+            if getCelluleGrilleDemineur(grille, (i, j))[const.RESOLU] == False:
+                val = simplifierGrilleDemineur(grille, (i, j))
+                for n in val:
+                    ensembleV.add(n)
+                val.clear()
+                val = ajouterFlagGrilleDemineur(grille, (i, j))
+                if len(val) != 0:
+                    for n in val:
+                        ensembleF.add(n)
+                    val.clear()
+                    val = simplifierGrilleDemineur(grille, (i, j))
+                    for n in val:
+                        ensembleV.add(n)
+                    val.clear()
+                getCelluleGrilleDemineur(grille, (i, j))[const.RESOLU] == True
+    return (ensembleV, ensembleF)
+
+
+

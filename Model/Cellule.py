@@ -39,6 +39,7 @@ def construireCellule(contient: int =0, visible : bool = False) -> dict:
     dico[const.CONTENU] = contient
     dico[const.VISIBLE] = visible
     dico[const.ANNOTATION] = None
+    dico[const.RESOLU] = False
     return dico
 
 def getContenuCellule(dico: dict) -> int:
