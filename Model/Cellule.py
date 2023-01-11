@@ -105,3 +105,9 @@ def changeAnnotationCellule(dico:dict) -> None:
     else:
         dico[const.ANNOTATION] = None
     return None
+
+def reinitialiserCellule(dico: dict) -> None:
+    dico[const.CONTENU] = 0
+    dico[const.VISIBLE] = False
+    dico[const.ANNOTATION] = None
+    return None
