@@ -195,3 +195,15 @@ def getMinesRestantesGrilleDemineur(grille: list) -> int:
             if getAnnotationGrilleDemineur(grille, (i,j)) == const.FLAG:
                 val += 1
     return getNbMinesGrilleDemineur(grille) - val
+
+
+def gagneGrilleDemineur(grille: list) -> bool:
+    isGagne = True
+    for i in range(len(grille)):
+        for j in range(len(grille[i])):
+            if isVisibleGrilleDemineur(grille, (i, j)) == False and contientMineGrilleDemineur(grille, (i, j)) == False:
+                isGagne = False
+            elif isVisibleGrilleDemineur(grille,(i, j)) and contientMineGrilleDemineur(grille, (i, j)):
+                isGagne = False
+    return isGagne
+
