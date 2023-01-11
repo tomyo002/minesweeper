@@ -201,11 +201,11 @@ def gagneGrilleDemineur(grille: list) -> bool:
     isGagne = True
     for i in range(len(grille)):
         for j in range(len(grille[i])):
-            if isVisibleGrilleDemineur(grille, (i, j)) == False and contientMineGrilleDemineur(grille, (i, j)) == False:
-                isGagne = False
-            elif isVisibleGrilleDemineur(grille,(i, j)) and contientMineGrilleDemineur(grille, (i, j)):
+            if isVisibleGrilleDemineur(grille,(i, j)) and contientMineGrilleDemineur(grille, (i, j)):
                 isGagne = False
             elif contientMineGrilleDemineur(grille,(i, j)) and getAnnotationGrilleDemineur(grille, (i, j)) != const.FLAG:
+                isGagne = False
+            elif isVisibleGrilleDemineur(grille, (i, j)) == False and contientMineGrilleDemineur(grille, (i, j)) == False:
                 isGagne = False
     return isGagne
 
@@ -294,23 +294,21 @@ def ajouterFlagGrilleDemineur(grille: list, coor: tuple) -> set:
 def simplifierToutGrilleDemineur(grille: list) -> tuple:
     ensembleV = set()
     ensembleF = set()
-    for i in range(len(grille)):
-        for j in range(len(grille[i])):
-            if getCelluleGrilleDemineur(grille, (i, j))[const.RESOLU] == False:
+    modif = True
+    while modif :
+        modif = False
+        for i in range(len(grille)):
+            for j in range(len(grille[i])):
                 val = simplifierGrilleDemineur(grille, (i, j))
                 for n in val:
                     ensembleV.add(n)
                 val.clear()
                 val = ajouterFlagGrilleDemineur(grille, (i, j))
-                if len(val) != 0:
-                    for n in val:
-                        ensembleF.add(n)
-                    val.clear()
-                    val = simplifierGrilleDemineur(grille, (i, j))
-                    for n in val:
-                        ensembleV.add(n)
-                    val.clear()
-                getCelluleGrilleDemineur(grille, (i, j))[const.RESOLU] == True
+                for n in val:
+                    modif = True
+                    ensembleF.add(n)
+                val.clear()
+
     return (ensembleV, ensembleF)
 
 
