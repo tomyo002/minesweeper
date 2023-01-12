@@ -276,12 +276,12 @@ def simplifierGrilleDemineur(grille: list, coor: tuple) -> set:
 def ajouterFlagGrilleDemineur(grille: list, coor: tuple) -> set:
     ensemble = set()
     lst = []
-    nbCase = 8
+    nbCase = 0
     if isVisibleGrilleDemineur(grille, coor):
         lst += getCoordonneeVoisinsGrilleDemineur(grille, coor)
         for i in lst:
-            if isVisibleGrilleDemineur(grille, i):
-                nbCase -= 1
+            if not isVisibleGrilleDemineur(grille, i):
+                nbCase += 1
         if getContenuGrilleDemineur(grille, coor)  == nbCase:
             for i in lst:
                 if not isVisibleGrilleDemineur(grille, i) and  getAnnotationGrilleDemineur(grille, i) != const.FLAG:
